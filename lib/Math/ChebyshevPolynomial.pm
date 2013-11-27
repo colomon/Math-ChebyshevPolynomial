@@ -4,7 +4,7 @@ class Math::ChebyshevPolynomial {
     has $.domain;
     has @.c;
 
-    method Approximate(Range $domain, $n, &f) {
+    method approximate(Range $domain, $n, &f) {
         my $bma = ($domain.max - $domain.min) / 2;
         my $bpa = ($domain.max + $domain.min) / 2;
         my @f = (^$n).map({ &f(cos(pi * ($_ + 1/2) / $n) * $bma + $bpa) });
@@ -17,7 +17,7 @@ class Math::ChebyshevPolynomial {
         self.new(:$domain, :@c);
     }
 
-    method Evaluate($x) {
+    method evaluate($x) {
         die '$x not in range in Math::ChebyshevPolynomial::Evaluate' unless $x ~~ $.domain;
         my $y = (2 * $x - $.domain.min - $.domain.max) / ($.domain.max - $.domain.min);
         my $y2 = 2 * $y;
