@@ -2,7 +2,7 @@ use v6;
 use Math::ChebyshevPolynomial;
 use Test;
 
-plan 25;
+plan 29;
 
 {
     my $cp = Math::ChebyshevPolynomial.new(:domain(-1..1), :c((42)));
@@ -59,4 +59,13 @@ plan 25;
     is_approx $cp.evaluate(0), -cos(0), "Quadratic 0 is correct";
     is_approx $cp.evaluate(1/2), -cos(1/2), "Quadratic 1/2 is correct";
     is_approx $cp.evaluate(-1/2), -cos(-1/2), "Quadratic -1/2 is correct";
+}
+
+{
+    my $cp = Math::ChebyshevPolynomial.approximate(1/4..3/4, 10, &cos);
+    isa_ok $cp, Math::ChebyshevPolynomial, ".approximate makes a proper object";
+    say $cp.c;
+    is_approx $cp.evaluate(1/4), cos(1/4), "Quadratic 1/4 is correct";
+    is_approx $cp.evaluate(1/2), cos(1/2), "Quadratic 1/2 is correct";
+    is_approx $cp.evaluate(3/4), cos(3/4), "Quadratic 3/4 is correct";
 }
