@@ -23,7 +23,7 @@ class Math::ChebyshevPolynomial {
         for (0..(@.c - 3)).reverse -> $j {
             @cder[$j] = @cder[$j + 2] + 2 * ($j + 1) * @.c[$j + 1];
         }
-        @cder = @cder >>*>> (2 / (@.domain.max - @.domain.min));
+        @cder = @cder >>*>> (2 / ($.domain.max - $.domain.min));
         self.new(:domain($.domain), :c(@cder));
     }
 
